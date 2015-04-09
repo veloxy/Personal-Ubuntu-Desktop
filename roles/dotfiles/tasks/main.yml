@@ -1,0 +1,5 @@
+---
+- name: Copy dotfiles to home folder
+  copy: src={{ item }} dest={{ dotfiles_dir }}/{{ user }}/{{ item | basename }}
+  with_fileglob:
+   - ./config/.*

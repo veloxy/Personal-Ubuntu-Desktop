@@ -1,0 +1,10 @@
+---
+- hosts: local
+  connection: local
+  user: "{{ user }}"
+
+  vars_files:
+   - vars.yml
+
+  roles:
+   - { role: dotfiles, tags: ['dotfiles'] }
