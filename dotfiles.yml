@@ -2,9 +2,14 @@
 - hosts: local
   connection: local
   user: "{{ user }}"
+  sudo: yes
+  #sudo_user: "{{ user }}"
 
   vars_files:
    - vars.yml
 
   roles:
    - { role: dotfiles, tags: ['dotfiles'] }
+   - { role: common, tags: ['common'] }
+   - { role: applications, tags: ['applications'] }
+   - { role: ui, tags: ['ui'] }

@@ -1,0 +1,49 @@
+---
+- name: Cloning ozon extensions
+  git: repo=https://github.com/ozonos/{{ item }}.git
+       dest=/tmp/{{ item }}
+  with_items: ozon_extensions
+       
+- name: Installing ozon extensions
+  command: make install chdir=/tmp/{{ item }}
+  with_items: ozon_extensions
+
+- name: Cleaning up ozon extensions
+  file: path=/tmp/{{ item }} state=absent
+  with_items: ozon_extensions
+
+- name: Enabling atom-dock
+  command: gsettings set org.gnome.shell enabled-extensions "['atom-dock@ozonos.org', 'atom-panel@ozonos.org', 'atom-launcher@ozonos.org']"
+  sudo_user: "{{ user }}"
+
+- name: Cloning ozon GTK theme
+  git: repo=https://github.com/ozonos/ozon-gtk-theme.git
+       dest=/tmp/ozon-gtk-theme
+
+- name: Installing GTK theme
+  command: make install chdir=/tmp/ozon-gtk-theme
+
+- name: Setting desktop interface 
+  command: gsettings set org.gnome.desktop.interface gtk-theme "Ozon"
+  sudo_user: "{{ user }}"
+
+- name: Setting desktop prefs theme  
+  command: gsettings set org.gnome.desktop.wm.preferences theme "Ozon"
+  sudo_user: "{{ user }}"
+
+
+- name: Cloning ozon icon theme
+  git: repo=https://github.com/ozonos/ozon-icon-theme.git
+       dest=/tmp/ozon-icon-theme
+
+- name: Installing icon theme
+  command: make install chdir=/tmp/ozon-icon-theme
+
+- name: Setting icon theme
+  command: gsettings set org.gnome.desktop.interface icon-theme "Ozon"
+  sudo_user: "{{ user }}"
+
+
+
+#- name: Restarting gnome shell
+#  command: gnome-shell --replace &

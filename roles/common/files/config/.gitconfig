@@ -1,0 +1,10 @@
+[user]
+  name = {{ git_name }}
+  email = {{ git_email }}
+
+[alias]
+  st = status
+  co = checkout
+
+[color]
+  ui = false

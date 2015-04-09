@@ -4,3 +4,10 @@ dotfiles_dir: /home
 git_name: Kevin Vandenborne
 git_email: kevin.vandenborne@gmail.com
 
+ozon_extensions:
+ - atom-dock
+ - atom-panel
+ - atom-launcher
+
+gems:
+ - sass
