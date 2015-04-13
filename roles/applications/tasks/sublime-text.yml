@@ -1,0 +1,16 @@
+---
+- name: Cheking if sublime is installed
+  file: path=/usr/bin/subl state=file
+  register: sublime_installed
+
+- name: Downloading Sublime
+  get_url: url=http://c758482.r82.cf2.rackcdn.com/sublime-text_build-3083_amd64.deb dest=/tmp/sublime-text.deb
+  when: sublime_installed == 0
+
+- name: Installing sublime
+  apt: deb=/tmp/sublime-text.deb
+  when: sublime_installed == 0
+
+- name: Removing sublime installation
+  file: path=/tmp/sublime-text.deb state=absent
+  when: sublime_installed == 0
