@@ -12,4 +12,4 @@
    - { role: dotfiles, tags: ['dotfiles'] }
    - { role: common, tags: ['common'] }
    - { role: applications, tags: ['applications'] }
-   - { role: ui, tags: ['ui'] }
+   #- { role: ui, tags: ['ui'] }
