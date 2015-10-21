@@ -8,4 +8,4 @@ gems:
  - sass
 
 apt_packages:
-
+ - vlc
