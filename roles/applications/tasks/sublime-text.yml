@@ -1,5 +1,5 @@
 ---
-- name: Cheking if sublime is installed
+- name: Checking if sublime is installed
   stat: path=/usr/bin/subl
   register: sublime_installed
 

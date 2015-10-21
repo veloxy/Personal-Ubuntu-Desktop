@@ -2,8 +2,17 @@
 - name: Add GTK-2 Engines Murrine
   apt: pkg=gtk2-engines-murrine state=latest
 
+  - name: Checking if arc sourcelist exists
+    stat: path=/etc/apt/sources.list.d/arc-theme.list
+    register: arc_theme_source
+
+- name: Add source list for arc theme
+  command: touch /etc/apt/sources.list.d/arc-theme.list
+  sudo_user: "{{ user }}"
+
 - name: Add source list for arc theme
   command: sh -c "echo 'deb http://download.opensuse.org/repositories/home:/Horst3180/xUbuntu_15.04/ /' >> /etc/apt/sources.list.d/arc-theme.list"
+  when: arc_theme_source.stat.exists == False
   sudo_user: "{{ user }}"
 
 - name: Update
