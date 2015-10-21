@@ -2,9 +2,9 @@
 - name: Add GTK-2 Engines Murrine
   apt: pkg=gtk2-engines-murrine state=latest
 
-  - name: Checking if arc sourcelist exists
-    stat: path=/etc/apt/sources.list.d/arc-theme.list
-    register: arc_theme_source
+- name: Checking if arc sourcelist exists
+  stat: path=/etc/apt/sources.list.d/arc-theme.list
+  register: arc_theme_source
 
 - name: Add source list for arc theme
   command: touch /etc/apt/sources.list.d/arc-theme.list
