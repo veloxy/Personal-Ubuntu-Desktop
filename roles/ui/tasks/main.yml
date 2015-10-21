@@ -1,50 +1,23 @@
 ---
-- name: Cloning ozon extensions
-  git: repo=https://github.com/ozonos/{{ item }}.git
-       dest=/tmp/{{ item }}
-  with_items: ozon_extensions
+- name: Add GTK-2 Engines Murrine
+  apt: pkg=gtk2-engines-murrine state=latest
 
-- name: Installing ozon extensions
-  command: make install chdir=/tmp/{{ item }}
-  with_items: ozon_extensions
-
-- name: Cleaning up ozon extensions
-  file: path=/tmp/{{ item }} state=absent
-  with_items: ozon_extensions
-
-# - name: Enabling atom-dock
-#   command: gsettings set org.gnome.shell enabled-extensions "['atom-dock@ozonos.org', 'atom-panel@ozonos.org', 'atom-launcher@ozonos.org']"
-#   sudo_user: "{{ user }}"
-
-# - name: Cloning ozon GTK theme
-#   git: repo=https://github.com/ozonos/ozon-gtk-theme.git
-#        dest=/tmp/ozon-gtk-theme
-
-# - name: Installing GTK theme
-#   command: make install chdir=/tmp/ozon-gtk-theme
-
-# - name: Setting desktop interface
-#   command: gsettings set org.gnome.desktop.interface gtk-theme "Ozon"
-#   sudo_user: "{{ user }}"
-
-# - name: Setting desktop prefs theme
-#   command: gsettings set org.gnome.desktop.wm.preferences theme "Ozon"
-#   sudo_user: "{{ user }}"
-- name: Add Numix repo
-  apt_repository: repo='ppa:numix/ppa'
+- name: Add source list for arc theme
+  command: sh -c "echo 'deb http://download.opensuse.org/repositories/home:/Horst3180/xUbuntu_15.04/ /' >> /etc/apt/sources.list.d/arc-theme.list"
+  sudo_user: "{{ user }}"
 
 - name: Update
   apt: update_cache=yes
 
-- name: Install numix theme
-  apt: name=numix-gtk-theme
+- name: Install arc theme
+  apt: pkg=arc-theme state=latest
 
 - name: Setting desktop interface
-  command: gsettings set org.gnome.desktop.interface gtk-theme "Numix"
+  command: gsettings set org.gnome.desktop.interface gtk-theme "Arc"
   sudo_user: "{{ user }}"
 
 - name: Setting desktop prefs theme
-  command: gsettings set org.gnome.desktop.wm.preferences theme "Numix"
+  command: gsettings set org.gnome.desktop.wm.preferences theme "Arc"
   sudo_user: "{{ user }}"
 
 - name: Cloning ozon icon theme

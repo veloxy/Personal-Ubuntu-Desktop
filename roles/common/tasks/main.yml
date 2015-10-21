@@ -1,4 +1,8 @@
 ---
+- name: Installing apt-packages
+  apt: pkg={{ item }} state=latest
+  with_items: apt_packages
+
 - name: Latest version of Ruby is installed
   apt: pkg={{ item }} state=latest
   with_items:
