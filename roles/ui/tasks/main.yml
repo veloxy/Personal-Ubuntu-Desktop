@@ -6,14 +6,13 @@
   stat: path=/etc/apt/sources.list.d/arc-theme.list
   register: arc_theme_source
 
-- name: Add source list for arc theme
-  command: touch /etc/apt/sources.list.d/arc-theme.list
-  sudo_user: "{{ user }}"
+- file: path=/etc/foo.conf state=touch mode="0644"
+  when: arc_theme_source.stat.exists == False 
 
 - name: Add source list for arc theme
   command: sh -c "echo 'deb http://download.opensuse.org/repositories/home:/Horst3180/xUbuntu_15.04/ /' >> /etc/apt/sources.list.d/arc-theme.list"
   when: arc_theme_source.stat.exists == False
-  sudo_user: "{{ user }}"
+# sudo_user: "{{ user }}"
 
 - name: Update
   apt: update_cache=yes
@@ -27,6 +26,14 @@
 
 - name: Setting desktop prefs theme
   command: gsettings set org.gnome.desktop.wm.preferences theme "Arc"
+  sudo_user: "{{ user }}"
+
+- name: Enable user themes shell extension
+  command: gsettings set org.gnome.shell enabled-extensions "['user-theme@gnome-shell-extensions.gcampax.github.com']"
+  sudo_user: "{{ user }}"
+
+- name: Set shell theme
+  command: gsettings set org.gnome.shell.extensions.user-theme name "Arc"
   sudo_user: "{{ user }}"
 
 - name: Cloning ozon icon theme
