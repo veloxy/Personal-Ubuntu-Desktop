@@ -12,7 +12,6 @@
 - name: Add source list for arc theme
   command: sh -c "echo 'deb http://download.opensuse.org/repositories/home:/Horst3180/xUbuntu_15.04/ /' >> /etc/apt/sources.list.d/arc-theme.list"
   when: arc_theme_source.stat.exists == False
-# sudo_user: "{{ user }}"
 
 - name: Update
   apt: update_cache=yes
